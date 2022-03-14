@@ -1,3 +1,6 @@
+
+
+import { v4 as uuidv4 } from 'uuid'
 /**
  * An alternative, stricter typed version of `Object.keys`.
  *
@@ -43,4 +46,8 @@ export const toUpperFirst = function <T extends string>(s: T): T {
   if (typeof s !== 'string') throw new Error(`toUpperFirst: ${s} is not a string.`)
   if (s.length === 0) return s
   return s.charAt(0).toUpperCase() + s.slice(1) as T
+}
+
+export function createUUID(): string {
+  return uuidv4()
 }
