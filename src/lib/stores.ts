@@ -1,33 +1,12 @@
+import { addSerializableClass, localStorage, persist, type PersistentStore } from "@macfja/svelte-persistent-store";
 import { writable } from 'svelte/store';
-import { defaults, ratePerHour } from './consts';
-import { createUUID } from './utils';
+import { Job } from './Job';
+import { Person } from './Person';
 
-export const clients = writable()
+addSerializableClass(Person)
+export const clients: PersistentStore<Record<string, Person>> = persist(writable({}), localStorage(), 'clients')
 
-export class Pomo {
-  timestamps: [Date, Date][] = []
-}
 
-export class Client {
-  id = createUUID()
-  firstName = ''
-  lastName = ''
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`
-  }
-  address = ''
-  phone = ''
-  email = ''
-  notes = ''
-}
 
-export class Job {
-  client: string
-  date: {
-    start: Date
-    end: Date | null
-  }
-  rate: number = ratePerHour
-  flatRate = defaults.flatRate
-  notes: string
-}
+addSerializableClass(Job)
+export const jobs: PersistentStore<Record<string, Job>> = persist(writable({}), localStorage(), 'jobs')
