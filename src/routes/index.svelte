@@ -33,12 +33,12 @@
 		}
 	}
 	let selectedJob;
-	let createPersonIsOpen = false;
+	let isOpen = false;
 </script>
 
 <body>
 	<h1 class="lg:text-5xl md:text-4xl text-3xl font-extrabold text-center text-blue-500">
-		pomo-invoice {createPersonIsOpen}
+		pomo-invoice {isOpen}
 	</h1>
 	<Pomodoro />
 	<p class="py-16">
@@ -46,17 +46,16 @@
 	</p>
 	<SelectJob />
 	<Button
-		text="Create Client"
 		func={() => {
-			createPersonIsOpen = !createPersonIsOpen;
-		}}
-	/>
-	<CreatePerson isOpen={createPersonIsOpen} />
+			isOpen = !isOpen;
+		}}>Create Client</Button
+	>
+	<CreatePerson {isOpen} />
 
 	<div class="bottom-4 fixed justify-center">
-		<Button text="Create invoice" />
-		<Button text="Export invoices" />
-		<Button text="Import invoices" />
-		<Button text="Create client" />
+		<Button>Create invoice</Button>
+		<Button>Export invoices</Button>
+		<Button>Import invoices</Button>
+		<Button>Create client</Button>
 	</div>
 </body>
