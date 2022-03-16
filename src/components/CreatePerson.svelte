@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formFields, Person } from '$lib/Person';
+	import { Person, personFields } from '$lib/Person';
 	import { clients } from '$lib/stores';
 	import {
 		Dialog,
@@ -54,7 +54,7 @@
 				>
 				{newPerson.firstName}
 				<div class="relative mb-4">
-					{#each formFields as field}
+					{#each personFields as field}
 						<label for={field.name} class="text-sm leading-7 text-gray-600">{field.label}</label>
 						<input
 							id={field.name}
