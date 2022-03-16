@@ -1,7 +1,8 @@
 export const ratePerHour = 66
 export const defaults = {
   ratePerHour: ratePerHour,
-  flatRate: 0
+  flatRate: 0,
+  expectedPomodoros: 2
 }
 
 export const minutesToSeconds = (minutes: number): number => minutes * 60;
