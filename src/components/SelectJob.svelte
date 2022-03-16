@@ -13,10 +13,12 @@
 </script>
 
 <div class="block text-sm font-medium leading-5 text-gray-700">Current Job</div>
-<div class="flex items-center justify-center w-full px-12 py-2">
+<div
+	class=" relative flex items-center justify-center w-full py-2 pl-3 text-left transition duration-150 ease-in-out"
+>
 	<Listbox value={selectedJob} on:change={(e) => (selectedJob = e.detail)}>
 		<ListboxButton
-			class="focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 relative w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default"
+			class="focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 pr-13 relative w-full py-2 pl-3 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default"
 		>
 			<svg
 				class="inline w-5 h-5 text-gray-400"
@@ -41,23 +43,24 @@
 			leaveFrom="transform scale-100 opacity-100"
 			leaveTo="transform scale-95 opacity-0"
 		>
-			<ListboxOptions>
+			<ListboxOptions class="space-y-2 border-2 rounded">
 				{#each Object.values($jobs) as job (job.id)}
 					<!-- Use the `active` state to conditionally style the active (focused) option -->
 					<!-- Use the `selected` state to conditionally style the selected option -->
 					<ListboxOption
 						value={job}
-						disabled={job.isOpen}
+						disabled={!job.isOpen}
 						class={({ active, selected }) =>
+							(active && selected ? 'active selected font-semibold bg-blue-700 text-white' : ' ') +
 							(active ? 'active text-white bg-blue-600' : 'text-gray-900') +
 							' ' +
-							(selected ? 'selected font-semibold' : 'font-normal') +
+							(selected ? 'selected font-semibold bg-slate-100' : 'font-normal') +
 							' ' +
-							'max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'}
+							'max-h-60 py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'}
 						let:selected
 					>
 						{#if selected}
-							<CheckIcon class="w-5 h-5" />
+							<CheckIcon class="inline w-5 h-5" />
 						{/if}
 						{job.title}
 					</ListboxOption>
