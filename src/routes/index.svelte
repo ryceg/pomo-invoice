@@ -44,7 +44,7 @@
 	</p>
 	<SelectJob />
 
-	<div class="fixed bottom-4 justify-center">
+	<div class="bottom-4 fixed justify-center">
 		<Button text="Create invoice" />
 		<Button text="Export invoices" />
 		<Button text="Import invoices" />
