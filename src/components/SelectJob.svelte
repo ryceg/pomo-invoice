@@ -1,6 +1,6 @@
 <script>
 	import { random } from '$lib/random';
-	import { jobs } from '$lib/stores';
+	import { current, jobs } from '$lib/stores';
 	import {
 		Listbox,
 		ListboxButton,
@@ -9,14 +9,15 @@
 		Transition
 	} from '@rgossiaux/svelte-headlessui';
 	import { CheckIcon } from '@rgossiaux/svelte-heroicons/solid';
-	let selectedJob = random(Object.values($jobs));
+	if (!$current.job) {
+		$current.job = random(Object.keys($jobs));
+	}
 </script>
 
-<div class="block text-sm font-medium leading-5 text-gray-700">Current Job</div>
 <div
 	class=" relative flex items-center justify-center w-full py-2 pl-3 text-left transition duration-150 ease-in-out"
 >
-	<Listbox value={selectedJob} on:change={(e) => (selectedJob = e.detail)}>
+	<Listbox value={$current.job} on:change={(e) => ($current.job = e.detail.id)}>
 		<ListboxButton
 			class="focus:outline-none focus:shadow-outline-red focus:border-red-300 sm:text-sm sm:leading-5 pr-13 relative w-full py-2 pl-3 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default"
 		>
@@ -33,7 +34,7 @@
 					stroke-linejoin="round"
 				/>
 			</svg>
-			{selectedJob.title}
+			{$jobs[$current.job]?.title || 'Select a job'}
 		</ListboxButton>
 		<Transition
 			enter="transition duration-100 ease-out"
@@ -52,12 +53,13 @@
 						disabled={!job.isOpen}
 						class={({ active, selected }) =>
 							(active && selected ? 'active selected font-semibold bg-red-700 text-white' : ' ') +
-							(active ? 'active text-white bg-red-600' : 'text-gray-900') +
+							(active ? 'active text-white bg-red-600' : 'text-stone-800') +
 							' ' +
-							(selected ? 'selected font-semibold bg-stone-100' : 'font-normal') +
+							(selected ? 'selected font-semibold bg-stone-100 text-stone-900' : 'font-normal') +
 							' ' +
 							'max-h-60 py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'}
 						let:selected
+						let:active
 					>
 						{#if selected}
 							<CheckIcon class="inline w-5 h-5" />

@@ -62,11 +62,13 @@
 		{formatTime(pomodoroTime)} ({currentState})
 	</time>
 	<div class="relative flex items-center justify-center space-x-8">
-		<Button func={startPomodoro} disabled={currentState !== State.idle}>Start</Button>
-		{#if currentState !== 'idle'}
+		{#if currentState !== State.inProgress}
+			<Button func={startPomodoro} disabled={currentState !== State.idle}>Start</Button>
+		{/if}
+		{#if currentState !== State.idle}
 			<Button func={cancelPomodoro} disabled={currentState !== State.inProgress}>Cancel</Button>
 		{/if}
-		{#if currentState === 'paused'}
+		{#if currentState === State.pause}
 			<Button func={pausePomodoro} disabled={currentState !== State.inProgress}>Pause</Button>
 		{/if}
 	</div>

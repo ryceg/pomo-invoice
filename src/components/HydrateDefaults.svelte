@@ -21,7 +21,7 @@
 	if (Object.keys($jobs).length <= 1) {
 		for (let i = 0; i < 10; i++) {
 			const job = new Job({
-				client: random(Object.keys(clients)),
+				client: random(Object.keys($clients)),
 				notes: faker.lorem.paragraph(),
 				title: faker.company.catchPhrase()
 			});

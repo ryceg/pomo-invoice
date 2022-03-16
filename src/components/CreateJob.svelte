@@ -51,10 +51,10 @@
 			>
 				<DialogTitle class="text-stone-900 text-lg font-medium leading-6">Create a Job</DialogTitle>
 				<div class="relative mb-4">
-					<label for={'client'} class="text-sm leading-7 text-gray-600">Client</label>
+					<label for="client" class="text-sm leading-7 text-gray-600">Client</label>
 					<select
-						id={'client'}
-						name={'client'}
+						id="client"
+						name="client"
 						bind:value={newJob['client']}
 						class="focus:border-stone-500 focus:ring-2 focus:ring-stone-200 border-stone-300 w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border rounded outline-none"
 					>

@@ -18,6 +18,16 @@ export class Job {
   title = '';
   notes = '';
   isOpen = true;
+  isActive = false;
+  // pomodoros: Pomo[] = [];
+  // start() {
+  //   this.pomodoros.push(new Pomo());
+  //   this.isActive = true;
+  // }
+  // stop() {
+  //   this.pomodoros[this.pomodoros.length - 1][1] = new Date();
+  //   this.isActive = false;
+  // }
 }
 
 interface JobField {

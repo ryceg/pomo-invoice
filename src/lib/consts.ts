@@ -7,6 +7,7 @@ export const defaults = {
 
 export const minutesToSeconds = (minutes: number): number => minutes * 60;
 export const secondsToMinutes = (seconds: number): number => Math.floor(seconds / 60);
+export const minutesToHours = (minutes: number) => minutes / 60;
 export const padWithZeroes = (number: number): string => number.toString().padStart(2, '0');
 export const State = { idle: 'idle', inProgress: 'in progress', resting: 'resting', pause: 'paused' };
 
