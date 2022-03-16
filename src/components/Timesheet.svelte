@@ -3,35 +3,70 @@
 	import { jobs } from '$lib/stores';
 	export let pomos: Pomo[];
 	export let showJob: boolean = false;
+	let dateWidth: number;
 </script>
 
-<!-- filter the values to the current job -->
-{#each pomos as pomo, i}
-	<!-- {#if i > 0} -->
-	<!-- {#if showJob && pomos[i - 1].job !== pomo.job} -->
-	<div class="px-2 font-light">{$jobs[pomo.job].title}</div>
-	<!-- {/if} -->
-	<!-- {/if} -->
-	<!-- {#each Object.values($pomodoros) as pomo} -->
-	{#each pomo.timestamps as timestamp}
-		<div class="items-center justify-center text-sm">
-			<div class="font-medium leading-5 text-gray-700 py-6 inline">
-				{timestamp[0].toLocaleString('en-AU', {
-					weekday: 'short',
-					day: 'numeric',
-					month: 'numeric',
-					minute: '2-digit',
-					hour: '2-digit'
-				})}
-			</div>
-			<div class="font-light text-gray-500 inline">to</div>
-			<div class="font-medium leading-5 text-gray-700 py-6 inline">
-				{timestamp[1].toLocaleString('en-AU', {
-					minute: '2-digit',
-					hour: '2-digit'
-				})}
-			</div>
-		</div>
-		<!-- ({$jobs[pomo.job]?.id || 'Loading...'}) vs {$current.job} -->
-	{/each}
-{/each}
+<table class="table-auto">
+	<thead>
+		<tr>
+			<th>Job</th>
+			<th>Date</th>
+			<th>Time Started</th>
+			<th>Time Ended</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<!-- filter the values to the current job -->
+		{#each pomos as pomo, i}
+			{@const previousI = i - 1}
+			<tr class="items-center justify-center text-sm">
+				<!-- Job -->
+				<td class="px-2 font-light text-sm">
+					{#if showJob && (i === 0 || pomos[previousI].job !== pomos[i].job)}
+						{$jobs[pomo.job].title}
+					{/if}
+				</td>
+				{#each pomo.timestamps as timestamp}
+					<!-- Date -->
+					<td class="px-5" bind:clientWidth={dateWidth}>
+						{#if i === 0 || pomos[i - 1].timestamps[0][0].toLocaleString( 'en-AU', { weekday: 'short', day: 'numeric' } ) !== timestamp[0].toLocaleString( 'en-AU', { weekday: 'short', day: 'numeric' } )}
+							{#if dateWidth > 125}
+								{timestamp[0].toLocaleString('en-AU', {
+									weekday: 'long',
+									day: 'numeric',
+									month: 'numeric'
+								})}
+							{:else if dateWidth > 100}
+								{timestamp[0].toLocaleString('en-AU', {
+									weekday: 'short',
+									day: 'numeric',
+									month: 'numeric'
+								})}
+							{:else}
+								{timestamp[0].toLocaleString('en-AU', {
+									day: 'numeric',
+									month: 'numeric'
+								})}
+							{/if}
+						{/if}
+					</td>
+					<!-- Time started -->
+					<td>
+						{timestamp[0].toLocaleString('en-AU', {
+							minute: '2-digit',
+							hour: '2-digit'
+						})}
+					</td>
+					<!-- Time Ended -->
+					<td>
+						{timestamp[1].toLocaleString('en-AU', {
+							minute: '2-digit',
+							hour: '2-digit'
+						})}
+					</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
+</table>
