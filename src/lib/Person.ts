@@ -16,8 +16,12 @@ export class Person {
   email = '';
   notes = '';
 }
-
-export const formFields = [
+interface PersonField {
+  type: string
+  label: string
+  name: string
+}
+export const personFields: PersonField[] = [
   {
     type: 'text',
     label: 'First Name',
