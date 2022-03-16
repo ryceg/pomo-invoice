@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Person } from '$lib/Person';
+	import { clients } from '$lib/stores';
 	import {
 		Dialog,
 		DialogOverlay,
@@ -6,11 +8,39 @@
 		Transition,
 		TransitionChild
 	} from '@rgossiaux/svelte-headlessui';
-	import Button from './Button.svelte';
 	export let isOpen = true;
-
-	function completeOrder() {
-		// ...
+	let newPerson = {};
+	const formFields = [
+		{
+			type: 'text',
+			label: 'First Name',
+			name: 'firstName'
+		},
+		{
+			type: 'text',
+			label: 'Last Name',
+			name: 'lastName'
+		},
+		{
+			type: 'email',
+			label: 'Email',
+			name: 'email'
+		},
+		{
+			type: 'text',
+			label: 'Phone',
+			name: 'phone'
+		},
+		{
+			type: 'text',
+			label: 'Address',
+			name: 'address'
+		}
+	];
+	function createPerson() {
+		const person = new Person(newPerson);
+		$clients[person.id] = person;
+		$clients = $clients;
 	}
 </script>
 
@@ -48,19 +78,22 @@
 					>Create a Client</DialogTitle
 				>
 				<div class="relative mb-4">
-					<label for="email" class="text-sm leading-7 text-gray-600">Email</label>
-					<input
-						type="email"
-						id="email"
-						name="email"
-						class="focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 border-stone-300 w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border rounded outline-none"
-					/>
+					{#each formFields as field}
+						<label for={field.name} class="text-sm leading-7 text-gray-600">{field.label}</label>
+						<input
+							type={field.type}
+							id={field.name}
+							name={field.name}
+							bind:this={newPerson[field.name]}
+							class="focus:border-stone-500 focus:ring-2 focus:ring-stone-200 border-stone-300 w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border rounded outline-none"
+						/>
+					{/each}
 				</div>
-				<Button
-					classN="hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500 inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md"
-					func={() => (isOpen = false)}>Close</Button
+				<button
+					class="hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500 inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md"
+					on:click={createPerson}>Create</button
 				>
-				<Button func={() => (isOpen = false)}>Close</Button>
+				<button on:click={() => (isOpen = false)}>Close</button>
 			</div>
 		</TransitionChild>
 	</Dialog>
