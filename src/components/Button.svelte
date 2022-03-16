@@ -1,9 +1,10 @@
 <script lang="ts">
 	export let func = (): void => {};
 	export let classN: string = '';
+	export let disabled: boolean = false;
 </script>
 
-<button on:click={() => func()}>
+<button {disabled} on:click={() => func()}>
 	<span
 		class={classN
 			? classN
