@@ -18,7 +18,7 @@
 >
 	<Listbox value={selectedJob} on:change={(e) => (selectedJob = e.detail)}>
 		<ListboxButton
-			class="focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 pr-13 relative w-full py-2 pl-3 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default"
+			class="focus:outline-none focus:shadow-outline-red focus:border-red-300 sm:text-sm sm:leading-5 pr-13 relative w-full py-2 pl-3 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default"
 		>
 			<svg
 				class="inline w-5 h-5 text-gray-400"
@@ -51,10 +51,10 @@
 						value={job}
 						disabled={!job.isOpen}
 						class={({ active, selected }) =>
-							(active && selected ? 'active selected font-semibold bg-blue-700 text-white' : ' ') +
-							(active ? 'active text-white bg-blue-600' : 'text-gray-900') +
+							(active && selected ? 'active selected font-semibold bg-red-700 text-white' : ' ') +
+							(active ? 'active text-white bg-red-600' : 'text-gray-900') +
 							' ' +
-							(selected ? 'selected font-semibold bg-slate-100' : 'font-normal') +
+							(selected ? 'selected font-semibold bg-stone-100' : 'font-normal') +
 							' ' +
 							'max-h-60 py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'}
 						let:selected

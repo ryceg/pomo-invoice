@@ -37,8 +37,8 @@
 </script>
 
 <body>
-	<h1 class="lg:text-5xl md:text-4xl text-3xl font-extrabold text-center text-blue-500">
-		pomo-invoice {isOpen}
+	<h1 class="lg:text-5xl md:text-4xl text-3xl font-extrabold text-center text-red-500">
+		pomo-invoice
 	</h1>
 	<Pomodoro />
 	<p class="py-16">
