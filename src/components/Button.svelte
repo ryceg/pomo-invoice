@@ -7,7 +7,7 @@
 
 <button on:click={() => func()}>
 	<span
-		class="border-gray-700 text-center bg-gray-600 px-4 py-3 rounded-md text-slate-300 font-bold hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+		class="bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 px-4 py-2 text-sm font-medium text-white bg-black rounded-md"
 	>
 		{text}</span
 	>

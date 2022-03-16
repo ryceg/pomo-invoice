@@ -5,6 +5,7 @@
 	import { clients, jobs } from '$lib/stores';
 	import faker from '@faker-js/faker';
 	import Button from '../components/Button.svelte';
+	import CreatePerson from '../components/CreatePerson.svelte';
 	import Pomodoro from '../components/Pomodoro.svelte';
 	import SelectJob from '../components/SelectJob.svelte';
 	if (Object.keys($clients).length <= 1) {
@@ -32,17 +33,25 @@
 		}
 	}
 	let selectedJob;
+	let createPersonIsOpen = false;
 </script>
 
 <body>
 	<h1 class="lg:text-5xl md:text-4xl text-3xl font-extrabold text-center text-blue-500">
-		pomo-invoice
+		pomo-invoice {createPersonIsOpen}
 	</h1>
 	<Pomodoro />
 	<p class="py-16">
 		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam eos alias delectus,
 	</p>
 	<SelectJob />
+	<Button
+		text="Create Client"
+		func={() => {
+			createPersonIsOpen = !createPersonIsOpen;
+		}}
+	/>
+	<CreatePerson isOpen={createPersonIsOpen} />
 
 	<div class="bottom-4 fixed justify-center">
 		<Button text="Create invoice" />
