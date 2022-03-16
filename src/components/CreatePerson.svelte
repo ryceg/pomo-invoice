@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Person } from '$lib/Person';
+	import { formFields, Person } from '$lib/Person';
 	import { clients } from '$lib/stores';
 	import {
 		Dialog,
@@ -10,37 +10,12 @@
 	} from '@rgossiaux/svelte-headlessui';
 	export let isOpen = true;
 	let newPerson = {};
-	const formFields = [
-		{
-			type: 'text',
-			label: 'First Name',
-			name: 'firstName'
-		},
-		{
-			type: 'text',
-			label: 'Last Name',
-			name: 'lastName'
-		},
-		{
-			type: 'email',
-			label: 'Email',
-			name: 'email'
-		},
-		{
-			type: 'text',
-			label: 'Phone',
-			name: 'phone'
-		},
-		{
-			type: 'text',
-			label: 'Address',
-			name: 'address'
-		}
-	];
+	$: newPerson;
 	function createPerson() {
 		const person = new Person(newPerson);
 		$clients[person.id] = person;
 		$clients = $clients;
+		isOpen = false;
 	}
 </script>
 
@@ -77,14 +52,14 @@
 				<DialogTitle class="text-stone-900 text-lg font-medium leading-6"
 					>Create a Client</DialogTitle
 				>
+				{newPerson.firstName}
 				<div class="relative mb-4">
 					{#each formFields as field}
 						<label for={field.name} class="text-sm leading-7 text-gray-600">{field.label}</label>
 						<input
-							type={field.type}
 							id={field.name}
 							name={field.name}
-							bind:this={newPerson[field.name]}
+							bind:value={newPerson[field.name]}
 							class="focus:border-stone-500 focus:ring-2 focus:ring-stone-200 border-stone-300 w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border rounded outline-none"
 						/>
 					{/each}

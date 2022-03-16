@@ -42,7 +42,7 @@
 	</h1>
 	<Pomodoro />
 	<p class="py-16">
-		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam eos alias delectus,
+		{JSON.stringify(Object.values($clients)[Object.keys($clients).length - 1])}
 	</p>
 	<SelectJob />
 	<Button
@@ -51,7 +51,6 @@
 		}}>Create Client</Button
 	>
 	<CreatePerson {isOpen} />
-
 	<div class="bottom-4 fixed justify-center">
 		<Button>Create invoice</Button>
 		<Button>Export invoices</Button>
