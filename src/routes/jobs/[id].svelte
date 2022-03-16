@@ -11,6 +11,6 @@
 	});
 </script>
 
-<h1>{selectedJob.title || 'Loading'}</h1>
+<h1 contenteditable="true" bind:innerHTML={selectedJob.title}>{selectedJob.title || 'Loading'}</h1>
 {selectedJob.client || 'Loading'}
 <Timesheet pomos={relevantPomos} />

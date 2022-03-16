@@ -9,15 +9,18 @@
 	$: relevantJobs = Object.values($jobs).filter((job) => {
 		return job.client === id;
 	});
-	$: jobIDs = Object.keys(relevantJobs);
+	$: jobIDs = relevantJobs.map((job) => {
+		return job.id;
+	});
 	$: relevantPomos = Object.values($pomodoros).filter((pomo) => {
 		return jobIDs.includes(pomo.job);
 	});
 </script>
 
-<h1>{selectedClient.fullName || 'Loading'}</h1>
+<h1 contenteditable="true" bind:innerHTML={selectedClient.fullName}>
+	{selectedClient.fullName || 'Loading'}
+</h1>
 <Timesheet pomos={relevantPomos} showJob={true} />
-{JSON.stringify(relevantPomos)}
 {#each relevantJobs as job}
-	<div>{job.title}</div>
+	<div contenteditable="true" bind:innerHTML={job.title}>{job.title}</div>
 {/each}

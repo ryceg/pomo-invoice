@@ -10,7 +10,6 @@
 	import HydrateDefaults from '../components/HydrateDefaults.svelte';
 	import Pomodoro from '../components/Pomodoro.svelte';
 	import SelectJob from '../components/SelectJob.svelte';
-
 	let selectedJob = $jobs[$current.job];
 	$: selectedJob;
 	let isOpen = false;
@@ -50,49 +49,20 @@
 				>{$jobs[$current.job]?.title ||
 					`${$clients[$jobs[$current.job]?.client]?.firstName}'s job` ||
 					'Loading...'}
-				<!-- {$jobs[$current.job]} -->
 			</a>
 		</div>
 		<div class="font-light text-gray-500 text-center">for</div>
 		<div class="font-medium leading-5 text-gray-700 py-1 text-center text-lg">
-			<a href="./clients/{$clients[$jobs[$current.job]?.client].id}">
+			<a href="./clients/{$clients[$jobs[$current.job]?.client]?.id}">
 				{$clients[$jobs[$current.job]?.client]?.firstName || 'Loading...'}
 			</a>
 		</div>
 	</div>
 	<SelectJob />
-	<!-- filter the values to the current job -->
-	{#each relevantPomos as pomo}
-		<!-- {#each Object.values($pomodoros) as pomo} -->
-		{#each pomo.timestamps as timestamp}
-			<div class="items-center justify-center text-sm">
-				<div class="font-medium leading-5 text-gray-700 py-6 inline">
-					{timestamp[0].toLocaleString('en-AU', {
-						weekday: 'short',
-						day: 'numeric',
-						month: 'numeric',
-						minute: '2-digit',
-						hour: '2-digit'
-					})}
-				</div>
-				<div class="font-light text-gray-500 inline">to</div>
-				<div class="font-medium leading-5 text-gray-700 py-6 inline">
-					{timestamp[1].toLocaleString('en-AU', {
-						minute: '2-digit',
-						hour: '2-digit'
-					})}
-				</div>
-			</div>
-			<!-- ({$jobs[pomo.job]?.id || 'Loading...'}) vs {$current.job} -->
-		{/each}
-	{/each}
 
 	<div class="py-2">Total: {calculatePomoTime(relevantPomos)}</div>
 	<div class="py-2">$: {calculatePomoTime(relevantPomos) * $jobs[$current.job].ratePerHour}</div>
 	<div class="bottom-4 fixed justify-center">
-		<!-- <Button>Create invoice</Button> -->
-		<!-- <Button>Export invoices</Button> -->
-		<!-- <Button>Import invoices</Button> -->
 		<Button
 			func={() => {
 				isOpen = !isOpen;

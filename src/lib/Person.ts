@@ -11,6 +11,11 @@ export class Person {
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
   }
+  set fullName(newName: string) {
+    const [firstName, lastName] = newName.split(' ');
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
   address = '';
   phone = '';
   email = '';

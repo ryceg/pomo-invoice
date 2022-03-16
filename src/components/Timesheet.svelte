@@ -6,10 +6,12 @@
 </script>
 
 <!-- filter the values to the current job -->
-{#each pomos as pomo}
-	{#if showJob}
-		<div class="px-2 font-light">{$jobs[pomo.job].title}</div>
-	{/if}
+{#each pomos as pomo, i}
+	<!-- {#if i > 0} -->
+	<!-- {#if showJob && pomos[i - 1].job !== pomo.job} -->
+	<div class="px-2 font-light">{$jobs[pomo.job].title}</div>
+	<!-- {/if} -->
+	<!-- {/if} -->
 	<!-- {#each Object.values($pomodoros) as pomo} -->
 	{#each pomo.timestamps as timestamp}
 		<div class="items-center justify-center text-sm">
