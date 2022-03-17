@@ -4,7 +4,7 @@
 	import Timesheet from '../../components/Timesheet.svelte';
 
 	$: id = $page.params.id;
-	console.log(id);
+	console.log($page);
 	$: selectedClient = $clients[id];
 	$: relevantJobs = Object.values($jobs).filter((job) => {
 		return job.client === id;

@@ -45,7 +45,7 @@
 	<Pomodoro />
 	<div class="items-center justify-center text-sm">
 		<div class="font-medium text-2xl leading-5 text-gray-700 pt-4 text-center">
-			<a href="./jobs/{$current.job}"
+			<a sveltekit:prefetch href="/jobs/{$current.job}"
 				>{$jobs[$current.job]?.title ||
 					`${$clients[$jobs[$current.job]?.client]?.firstName}'s job` ||
 					'Loading...'}
@@ -53,7 +53,7 @@
 		</div>
 		<div class="font-light text-gray-500 text-center">for</div>
 		<div class="font-medium leading-5 text-gray-700 py-1 text-center text-lg">
-			<a href="./clients/{$clients[$jobs[$current.job]?.client]?.id}">
+			<a sveltekit:prefetch href="/clients/{$clients[$jobs[$current.job]?.client]?.id}">
 				{$clients[$jobs[$current.job]?.client]?.firstName || 'Loading...'}
 			</a>
 		</div>

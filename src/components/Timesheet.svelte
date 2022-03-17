@@ -22,11 +22,17 @@
 			{@const previousI = i - 1}
 			<tr class="items-center justify-center text-sm">
 				<!-- Job -->
-				<td class="px-2 font-light text-sm">
-					{#if showJob && (i === 0 || pomos[previousI].job !== pomos[i].job)}
+				{#if showJob && (i === 0 || pomos[previousI].job !== pomos[i].job)}
+					<td
+						contenteditable="true"
+						bind:innerHTML={$jobs[pomo.job].title}
+						class="px-2 font-light text-sm"
+					>
 						{$jobs[pomo.job].title}
-					{/if}
-				</td>
+					</td>
+				{:else}
+					<td />
+				{/if}
 				{#each pomo.timestamps as timestamp}
 					<!-- Date -->
 					<td class="px-5" bind:clientWidth={dateWidth}>
