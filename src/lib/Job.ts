@@ -17,7 +17,7 @@ export class Job {
   expectedPomodoros = 2
   title = '';
   notes = '';
-  isOpen = true;
+  isFinished = false;
   isActive = false;
   // pomodoros: Pomo[] = [];
   // start() {
