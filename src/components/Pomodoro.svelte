@@ -1,13 +1,21 @@
 <script lang="ts">
-	import { formatTime, LONG_BREAK_S, POMODORO_S, SHORT_BREAK_S, State } from '$lib/consts';
+	import { formatTime,LONG_BREAK_S,POMODORO_S,SHORT_BREAK_S,State } from '$lib/consts';
+import { Pomo } from '$lib/Pomo';
+	import { current,jobs } from '$lib/stores';
 	import Button from './Button.svelte';
 
 	let currentState = State.idle;
 	let pomodoroTime = POMODORO_S;
 	let completedPomodoros = 0;
 	let interval;
+	let currentJob = $jobs[$current.job];
+	let currentPomodoro;
 
 	function startPomodoro() {
+		currentPomodoro = new Pomo({
+			job: currentJob.id
+		})
+		currentPomodoro.start();
 		setState(State.inProgress);
 		interval = setInterval(() => {
 			if (pomodoroTime === 0) {
@@ -23,6 +31,7 @@
 	}
 
 	function completePomodoro() {
+		currentPomodoro.end();
 		completedPomodoros++;
 		if (completedPomodoros === 4) {
 			rest(LONG_BREAK_S);
@@ -44,10 +53,10 @@
 	}
 
 	function cancelPomodoro() {
-		// TODO: Add some logic to prompt the user to write down the cause of the interruption.
 		idle();
 	}
 	function pausePomodoro() {
+		// TODO: Add some logic to prompt the user to write down the cause of the interruption.
 		idle();
 	}
 
@@ -68,7 +77,7 @@
 		{#if currentState !== State.idle}
 			<Button func={cancelPomodoro} disabled={currentState !== State.inProgress}>Cancel</Button>
 		{/if}
-		{#if currentState === State.pause}
+		{#if currentState === State.inProgress}
 			<Button func={pausePomodoro} disabled={currentState !== State.inProgress}>Pause</Button>
 		{/if}
 	</div>
