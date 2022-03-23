@@ -18,10 +18,9 @@
 </script>
 
 <h1
-	class="text-5xl p-4 font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600"
-	contenteditable="true"
-	bind:innerHTML={selectedClient.fullName}
+	class="bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 p-4 text-5xl font-extrabold text-transparent"
 >
-	{selectedClient.fullName || 'Loading'}
+	{selectedClient?.fullName || 'Loading'}
 </h1>
-<Timesheet pomos={relevantPomos} show={{ job: true }} />
+<Timesheet pomos={relevantPomos} show={{ job: true, pomo: true, client: false }} />
+{JSON.stringify(relevantPomos)}

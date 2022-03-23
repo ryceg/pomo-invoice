@@ -18,7 +18,7 @@ export class Pomo {
       clearInterval(this.interval);
     }
   }, 1000);
-  start() {
+  start(): void {
     this.timestamps.push([new Date(), null]);
     setInterval(() => {
       if (this.timeAccrued === 25 * 60) {
@@ -27,15 +27,14 @@ export class Pomo {
       this.timeAccrued++;
     }, 1000);
   }
-  pause() {
+  pause(): void {
     this.timestamps[this.timestamps.length - 1][1] = new Date();
   }
-  end() {
+  end(): void {
     this.timestamps[this.timestamps.length - 1][1] = new Date();
   }
-  complete() {
+  complete(): void {
     this.end();
     this.timeAccrued = 0;
-
   }
 }

@@ -12,19 +12,21 @@
 </script>
 
 <h1
-	class="text-5xl p-4 font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600"
+	class="bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 p-4 text-5xl font-extrabold text-transparent"
 	contenteditable="true"
 	bind:innerHTML={selectedJob.title}
 >
-	{selectedJob.title || 'Loading'}
+	{selectedJob?.title || 'Loading'}
 </h1>
 for
-<a href="/clients/{selectedJob.client}" class="font-bold py-8"
+<a href="/clients/{selectedJob.client}" class="py-8 font-bold"
 	>{$clients[selectedJob.client].fullName || 'Loading'}</a
 >
 <Timesheet
 	pomos={relevantPomos}
 	show={{
+		client: false,
+		pomo: true,
 		job: false
 	}}
 />

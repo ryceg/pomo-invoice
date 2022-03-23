@@ -1,4 +1,4 @@
-import { defaults, ratePerHour } from './consts';
+import { defaults } from './consts';
 import { createUUID } from './utils';
 
 
@@ -12,21 +12,18 @@ export class Job {
     start: Date;
     end: Date | null;
   };
-  ratePerHour: number = ratePerHour;
+  ratePerHour: number = defaults.ratePerHour;
   flatRate = defaults.flatRate;
   expectedPomodoros = 2
   title = '';
   notes = '';
   isFinished = false;
-  isActive = false;
   // pomodoros: Pomo[] = [];
   // start() {
   //   this.pomodoros.push(new Pomo());
-  //   this.isActive = true;
   // }
   // stop() {
   //   this.pomodoros[this.pomodoros.length - 1][1] = new Date();
-  //   this.isActive = false;
   // }
 }
 

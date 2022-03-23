@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { Job } from '$lib/Job';
 	import { Person } from '$lib/Person';
+	import { Pomo } from '$lib/Pomo';
 	import { random } from '$lib/random';
-	import { clients, jobs } from '$lib/stores';
+	import { clients, current, jobs, pomodoros } from '$lib/stores';
 	import faker from '@faker-js/faker';
 	if (Object.keys($clients).length <= 1) {
 		for (let i = 0; i < 10; i++) {
@@ -26,6 +27,27 @@
 				title: faker.company.catchPhrase()
 			});
 			$jobs[job.id] = job;
+		}
+	}
+
+	if (
+		Object.values($pomodoros).filter((pomo) => {
+			return pomo.job === $current.job;
+		}).length < 10
+	) {
+		for (let i = 0; i < random(1, 40); i++) {
+			$current.job = random(Object.keys($jobs));
+			$current.client = $jobs[$current.job].client;
+			const date: Date = faker.date.recent(10);
+			// date that's 25 minutes after the first
+			const secondDate: Date = new Date(date.getTime() + 25 * 60 * 1000);
+
+			const newPomo = new Pomo({
+				timestamps: [[date, secondDate]],
+				job: $current.job,
+				invoiceLine: faker.commerce.productName()
+			});
+			$pomodoros[newPomo.id] = newPomo;
 		}
 	}
 </script>

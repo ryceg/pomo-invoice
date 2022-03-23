@@ -1,13 +1,11 @@
 <script>
 	import { calculatePomoTime } from '$lib/calculateTime';
-	import { Pomo } from '$lib/Pomo';
-	import { random } from '$lib/random';
+	import { defaults } from '$lib/consts';
+	import { createRandom } from '$lib/createRandom';
 	import { clients, current, jobs, pomodoros } from '$lib/stores';
-	import faker from '@faker-js/faker';
 	import Button from '../components/Button.svelte';
 	import CreateJob from '../components/CreateJob.svelte';
 	import CreatePerson from '../components/CreatePerson.svelte';
-	import DatePicker from '../components/DatePicker.svelte';
 	import HydrateDefaults from '../components/HydrateDefaults.svelte';
 	import Pomodoro from '../components/Pomodoro.svelte';
 	import SelectJob from '../components/SelectJob.svelte';
@@ -18,21 +16,14 @@
 	$: relevantPomos = Object.values($pomodoros).filter((pomo) => {
 		return pomo.job === $current.job;
 	});
-	if (
-		Object.values($pomodoros).filter((pomo) => {
-			return pomo.job === $current.job;
-		}).length < 10
-	) {
-		for (let i = 0; i < random(1, 20); i++) {
-			const date = faker.date.recent(10);
-			// date that's 25 minutes after the first
-			const secondDate = new Date(date.getTime() + 25 * 60 * 1000);
-			const newPomo = new Pomo({
-				timestamps: [[date, secondDate]],
-				job: $current.job
-			});
-			$pomodoros[newPomo.id] = newPomo;
-		}
+
+	function createSomeRandoms() {
+		alert('Success');
+		createRandom({
+			jobs: 15,
+			pomodoros: 15,
+			clients: 15
+		});
 	}
 </script>
 
@@ -64,8 +55,15 @@
 	<SelectJob />
 
 	<div class="py-2">Total: {calculatePomoTime(relevantPomos)}</div>
-	<div class="py-2">$: {calculatePomoTime(relevantPomos) * $jobs[$current.job].ratePerHour}</div>
-	<DatePicker />
+	<div class="py-2">
+		$: {calculatePomoTime(relevantPomos) *
+			($jobs[$current.job]?.ratePerHour || defaults.ratePerHour)}
+	</div>
+	<button
+		on:click={createSomeRandoms}
+		class="bg-stone-500 hover:bg-stone-700 px-4 py-2 font-bold text-white rounded-full"
+		>Create All</button
+	>
 	<div class="bottom-4 fixed justify-center">
 		<Button
 			func={() => {
