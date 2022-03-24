@@ -19,6 +19,12 @@ export const loadPomodoros = async () => {
   pomodoros.set(data)
 }
 
+export const addPomodoro = async (pomodoro: Pomo) => {
+  const { data, error } = await supabase.from('pomodoros').insert(pomodoro)
+  if (error) return console.error(error)
+  pomodoros.update(pomodoros => [...pomodoros, data])
+}
+
 
 
 export const clients: Writable<Person[]> = writable([])
@@ -72,3 +78,9 @@ export const updateJob = async (job: Job) => {
   if (error) return console.error(error)
   jobs.update(jobs => jobs.map(j => j.id === job.id ? data : j))
 }
+
+loadClients()
+
+loadJobs()
+
+loadPomodoros()

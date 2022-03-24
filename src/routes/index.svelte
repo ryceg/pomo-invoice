@@ -6,7 +6,6 @@
 	import Button from '../components/Button.svelte';
 	import CreateJob from '../components/CreateJob.svelte';
 	import CreatePerson from '../components/CreatePerson.svelte';
-	import HydrateDefaults from '../components/HydrateDefaults.svelte';
 	import Pomodoro from '../components/Pomodoro.svelte';
 	import SelectJob from '../components/SelectJob.svelte';
 	import { supabase } from '../supabase';
@@ -28,7 +27,7 @@
 	}
 </script>
 
-<HydrateDefaults />
+<!-- <HydrateDefaults /> -->
 <header>
 	<div
 		class="bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 p-4 text-5xl font-extrabold text-center text-transparent"

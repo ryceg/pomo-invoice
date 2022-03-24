@@ -2,8 +2,9 @@ import { Job } from '$lib/Job';
 import { Person } from '$lib/Person';
 import { Pomo } from '$lib/Pomo';
 import { random } from '$lib/random';
-import { clients, current, jobs, pomodoros } from '$lib/stores';
+import { addClient, addJob, addPomodoro, clients, jobs } from '$lib/stores';
 import faker from '@faker-js/faker';
+import { get } from 'svelte/store';
 import { keys } from './utils';
 
 type ClassTypes = 'jobs' | 'clients' | 'pomodoros'
@@ -34,6 +35,7 @@ function createPerson(amount = 1) {
       email: faker.internet.email(),
       notes: faker.lorem.paragraph()
     });
+    addClient(person)
   }
 }
 
@@ -44,24 +46,22 @@ function createJob(amount = 1) {
       notes: faker.lorem.paragraph(),
       title: faker.company.catchPhrase()
     });
-    jobs[job.id] = job;
+    addJob(job)
   }
 }
 
 function createPomo(amount = 1) {
 
   for (let i = 0; i < 50; i++) {
-    current.job = random(Object.keys(jobs));
-    current.client = jobs[current.job].client;
     const date: Date = faker.date.recent(10);
     // date that's 25 minutes after the first
     const secondDate: Date = new Date(date.getTime() + (25 * 60 * 1000));
 
     const newPomo = new Pomo({
       timestamps: [[date, secondDate]],
-      job: random(Object.keys(jobs)),
+      job: random(get(jobs)).id,
       invoiceLine: faker.commerce.productName(),
     });
-    pomodoros[newPomo.id] = newPomo;
+    addPomodoro(newPomo)
   }
 }
