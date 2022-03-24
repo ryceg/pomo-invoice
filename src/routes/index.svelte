@@ -9,6 +9,7 @@
 	import HydrateDefaults from '../components/HydrateDefaults.svelte';
 	import Pomodoro from '../components/Pomodoro.svelte';
 	import SelectJob from '../components/SelectJob.svelte';
+	import { supabase } from '../supabase';
 	let selectedJob = $jobs[$current.job];
 	$: selectedJob;
 	let isOpen = false;
@@ -16,7 +17,7 @@
 	$: relevantPomos = Object.values($pomodoros).filter((pomo) => {
 		return pomo.job === $current.job;
 	});
-
+	console.log(supabase);
 	function createSomeRandoms() {
 		alert('Success');
 		createRandom({

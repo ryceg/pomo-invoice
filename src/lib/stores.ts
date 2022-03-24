@@ -1,31 +1,27 @@
-import type { PersistentStore } from "@macfja/svelte-persistent-store";
-import { addSerializableClass, localStorage, persist } from "@macfja/svelte-persistent-store";
+import { addSerializableClass } from "@macfja/svelte-persistent-store";
 import { writable } from 'svelte/store';
 import { Job } from './Job';
 import { Person } from './Person';
 import { Pomo } from './Pomo';
 
 addSerializableClass(Person)
-export const clients: PersistentStore<Record<string, Person>> = persist(writable({}), localStorage(), 'clients')
+export const clients = writable({})
 export let clientsValue
 clients.subscribe($clients => clientsValue = $clients)
 addSerializableClass(Date)
 
 addSerializableClass(Job)
-export const jobs: PersistentStore<Record<string, Job>> = persist(writable({}), localStorage(), 'jobs')
+export const jobs = writable({})
 export let jobsValue
 jobs.subscribe($jobs => jobsValue = $jobs)
 addSerializableClass(Pomo)
-export const pomodoros: PersistentStore<Record<string, Pomo>> = persist(writable({}), localStorage(), 'pomodoros')
+export const pomodoros = writable({})
 export let pomodorosValue
 pomodoros.subscribe($pomodoros => pomodorosValue = $pomodoros)
-export const current: PersistentStore<{
-  job: string
-  client: string
-}> = persist(writable({
-  job: '',
-  client: ''
-}), localStorage(), 'current')
+export const current = writable({
+  client: '',
+  job: ''
+})
 
 export let currentValue
 current.subscribe($current => currentValue = $current)
