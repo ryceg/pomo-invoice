@@ -5,7 +5,7 @@
 	import { random } from '$lib/random';
 	import { clients, current, jobs, pomodoros } from '$lib/stores';
 	import faker from '@faker-js/faker';
-	if (Object.keys($clients).length <= 1) {
+	if ($clients.length <= 1) {
 		for (let i = 0; i < 10; i++) {
 			const person = new Person({
 				firstName: faker.name.firstName(),
@@ -15,23 +15,24 @@
 				email: faker.internet.email(),
 				notes: faker.lorem.paragraph()
 			});
-			$clients[person.id] = person;
+			$clients.push(person);
 			$clients = $clients;
 		}
 	}
-	if (Object.keys($jobs).length <= 1) {
+	if ($jobs.length <= 1) {
 		for (let i = 0; i < 10; i++) {
 			const job = new Job({
 				client: random(Object.keys($clients)),
 				notes: faker.lorem.paragraph(),
 				title: faker.company.catchPhrase()
 			});
-			$jobs[job.id] = job;
+			$jobs.push(job);
+			$jobs = $jobs;
 		}
 	}
 
 	if (
-		Object.values($pomodoros).filter((pomo) => {
+		$pomodoros.filter((pomo) => {
 			return pomo.job === $current.job;
 		}).length < 10
 	) {
@@ -47,7 +48,8 @@
 				job: $current.job,
 				invoiceLine: faker.commerce.productName()
 			});
-			$pomodoros[newPomo.id] = newPomo;
+			$pomodoros.push(newPomo);
+			$pomodoros = $pomodoros;
 		}
 	}
 </script>
