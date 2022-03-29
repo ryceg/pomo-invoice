@@ -12,11 +12,11 @@ export function createRandom(amounts: Record<ClassTypes, number>) {
   console.log(amounts)
   for (const type of keys(amounts)) {
     switch (type) {
-      case 'jobs':
-        createJob(amounts[type]);
-        break;
       case 'clients':
         createPerson(amounts[type]);
+        break;
+      case 'jobs':
+        createJob(amounts[type]);
         break;
       case 'pomodoros':
         createPomo(amounts[type]);
@@ -41,8 +41,10 @@ function createPerson(amount = 1) {
 
 function createJob(amount = 1) {
   for (let i = 0; i < amount; i++) {
+    const isFinished = Math.random() < 0.2 ? true : false;
     const job = new Job({
-      client: random(Object.keys(clients)),
+      client: random(get(clients)).id,
+      isFinished,
       notes: faker.lorem.paragraph(),
       title: faker.company.catchPhrase()
     });

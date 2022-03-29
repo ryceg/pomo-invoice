@@ -1,17 +1,12 @@
 import { defaults } from './consts';
-import { createUUID } from './utils';
 
 
 export class Job {
   constructor(base: Partial<Job>) {
     Object.assign(this, base);
   }
-  id = createUUID();
-  client: string;
-  date: {
-    start: Date;
-    end: Date | null;
-  };
+  id!: number;
+  client: number;
   ratePerHour: number = defaults.ratePerHour;
   flatRate = defaults.flatRate;
   expectedPomodoros = 2

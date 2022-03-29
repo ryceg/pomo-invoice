@@ -1,11 +1,10 @@
-import { createUUID } from './utils';
 
 
 export class Person {
   constructor(base: Partial<Person>) {
     Object.assign(this, base);
   }
-  id = createUUID();
+  id!: number;
   firstName = '';
   lastName = '';
   get fullName() {

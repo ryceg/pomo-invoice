@@ -8,5 +8,5 @@
 >
 	Pomodoros
 </h1>
-<Timesheet pomos={Object.values($pomodoros)} show={{ job: true, client: true, pomo: true }} />
+<Timesheet pomos={$pomodoros} show={{ job: true, client: true, pomo: true }} />
 Test

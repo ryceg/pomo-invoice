@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { clients } from '$lib/stores';
+	import { clients, loadClients } from '$lib/stores';
+	loadClients();
 </script>
 
 <table class="table-auto">
@@ -14,7 +15,7 @@
 	</thead>
 
 	<tbody>
-		{#each Object.values($clients) as client}
+		{#each $clients as client}
 			<tr>
 				<td contenteditable="true" bind:innerHTML={client.firstName}>{client.firstName}</td>
 				<td contenteditable="true" bind:innerHTML={client.lastName}>{client.lastName}</td>

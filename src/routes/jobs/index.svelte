@@ -11,16 +11,17 @@
 			<th>Flat Rate</th>
 			<th>Notes</th>
 			<th>Finished</th>
+			<th>Link</th>
 		</tr>
 	</thead>
 
 	<tbody>
-		{#each Object.values($jobs) as job}
+		{#each $jobs as job}
 			<tr>
 				<td contenteditable="true" bind:innerHTML={job.title}>{job.title}</td>
 				<td
 					><select bind:value={job.client}>
-						{#each Object.values($clients) as client}
+						{#each $clients as client}
 							<option value={client.id}>{client.fullName}</option>
 						{/each}
 					</select></td
@@ -30,6 +31,9 @@
 				<td contenteditable="true" bind:innerHTML={job.notes} class="overflow-clip">{job.notes}</td>
 				<td>
 					<input class="content-center" type="checkbox" bind:checked={job.isFinished} />
+				</td>
+				<td>
+					<a href="/jobs/{job.id}">Link</a>
 				</td>
 			</tr>
 		{/each}

@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { clients, jobs, pomodoros } from '$lib/stores';
+	import { findViaKey } from '$lib/find';
+	import type { Job } from '$lib/Job';
+	import { clients, pomodoros } from '$lib/stores';
 	import Timesheet from '../../components/Timesheet.svelte';
 
-	$: id = $page.params.id;
+	$: id = parseInt($page.params.id);
 	console.log(id);
-	$: selectedJob = $jobs[id];
-	$: relevantPomos = Object.values($pomodoros).filter((pomo) => {
+	$: selectedJob = findViaKey(id, 'job') as Job;
+	$: relevantPomos = $pomodoros.filter((pomo) => {
 		return pomo.job === id;
 	});
+	$: jobClient = $clients[selectedJob.client];
 </script>
 
 <h1
@@ -20,7 +23,7 @@
 </h1>
 for
 <a href="/clients/{selectedJob.client}" class="py-8 font-bold"
-	>{$clients[selectedJob.client].fullName || 'Loading'}</a
+	>{`${jobClient.firstName} ${jobClient.lastName}` || 'Loading'}</a
 >
 <Timesheet
 	pomos={relevantPomos}

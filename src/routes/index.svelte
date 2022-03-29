@@ -13,16 +13,16 @@
 	$: selectedJob;
 	let isOpen = false;
 	let jobIsOpen = false;
-	$: relevantPomos = Object.values($pomodoros).filter((pomo) => {
+	$: relevantPomos = $pomodoros.filter((pomo) => {
 		return pomo.job === $current.job;
 	});
 	console.log(supabase);
 	function createSomeRandoms() {
 		alert('Success');
 		createRandom({
-			jobs: 15,
-			pomodoros: 15,
-			clients: 15
+			clients: 4,
+			jobs: 2,
+			pomodoros: 45
 		});
 	}
 </script>

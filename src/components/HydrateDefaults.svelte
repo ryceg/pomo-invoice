@@ -22,7 +22,7 @@
 	if ($jobs.length <= 1) {
 		for (let i = 0; i < 10; i++) {
 			const job = new Job({
-				client: random(Object.keys($clients)),
+				client: random($clients).id,
 				notes: faker.lorem.paragraph(),
 				title: faker.company.catchPhrase()
 			});

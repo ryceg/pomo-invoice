@@ -10,7 +10,7 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { CheckIcon } from '@rgossiaux/svelte-heroicons/solid';
 	if (!$current.job) {
-		$current.job = random(Object.keys($jobs));
+		$current.job = random($jobs).id || null;
 	}
 </script>
 
@@ -45,12 +45,12 @@
 			leaveTo="transform scale-95 opacity-0"
 		>
 			<ListboxOptions class="space-y-2 border-2 rounded">
-				{#each Object.values($jobs) as job (job.id)}
+				{#each $jobs as job (job.id)}
 					<!-- Use the `active` state to conditionally style the active (focused) option -->
 					<!-- Use the `selected` state to conditionally style the selected option -->
 					<ListboxOption
 						value={job}
-						disabled={!job.isOpen}
+						disabled={!job.isFinished}
 						class={({ active, selected }) =>
 							(active && selected ? 'active selected font-semibold bg-red-700 text-white' : ' ') +
 							(active ? 'active text-white bg-red-600' : 'text-stone-800') +

@@ -6,8 +6,8 @@ import type { Pomo } from './Pomo';
 
 
 export const current: Writable<{
-  client: string
-  job: string
+  client: string | number
+  job: string | number
 }> = writable({
   client: '',
   job: ''
@@ -43,13 +43,13 @@ export const addClient = async (client: Person) => {
 export const deleteClient = async (id: string) => {
   const { error } = await supabase.from('clients').delete().match({ id })
   if (error) return console.error(error)
-  clients.update(clients => clients.filter(job => job.id !== id))
+  clients.update(clients => clients.filter(client => client.id !== id))
 }
 
 export const updateClient = async (client: Person) => {
   const { data, error } = await supabase.from('clients').update([client])
   if (error) return console.error(error)
-  clients.update(clients => clients.map(job => job.id === data.id ? data : job))
+  clients.update(clients => clients.map(client => client.id === data.id ? data : client))
 }
 
 
@@ -67,7 +67,7 @@ export const addJob = async (job: Job) => {
   jobs.update(jobs => [...jobs, data])
 }
 
-export const deleteJob = async (id: string) => {
+export const deleteJob = async (id: number) => {
   const { error } = await supabase.from('jobs').delete().match({ id })
   if (error) return console.error(error)
   jobs.update(jobs => jobs.filter(job => job.id !== id))
