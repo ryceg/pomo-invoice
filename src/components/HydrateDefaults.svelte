@@ -3,8 +3,9 @@
 	import { Person } from '$lib/Person';
 	import { Pomo } from '$lib/Pomo';
 	import { random } from '$lib/random';
-	import { clients, current, jobs, pomodoros } from '$lib/stores';
+	import { clients,current,jobs,pomodoros } from '$lib/stores';
 	import faker from '@faker-js/faker';
+	import dayjs from 'dayjs';
 	if ($clients.length <= 1) {
 		for (let i = 0; i < 10; i++) {
 			const person = new Person({
@@ -37,12 +38,13 @@
 		}).length < 10
 	) {
 		for (let i = 0; i < random(1, 40); i++) {
-			$current.job = random(Object.keys($jobs));
+			$current.job = random($jobs).id;
 			$current.client = $jobs[$current.job].client;
 			const date: Date = faker.date.recent(10);
 			// date that's 25 minutes after the first
-			const secondDate: Date = new Date(date.getTime() + 25 * 60 * 1000);
-
+			const secondDate: Date = dayjs(date)
+				.add(25, 'minute')
+				.toDate();
 			const newPomo = new Pomo({
 				timestamps: [[date, secondDate]],
 				job: $current.job,

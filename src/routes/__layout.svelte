@@ -2,7 +2,6 @@
 	import { loadClients, loadJobs, loadPomodoros, user } from '$lib/stores';
 	import { supabase } from '../../src/supabase';
 	import '../app.css';
-	import Auth from '../components/Auth.svelte';
 	import Menubar from '../components/Menubar.svelte';
 	user.set(supabase.auth.user());
 	supabase.auth.onAuthStateChange((_, session) => {
@@ -22,10 +21,6 @@
 	/>
 </svelte:head>
 <div class="md:w-7/12 lg:6/12 relative w-10/12 py-20 mx-auto">
-	{#if $user}
-		<Menubar />
-	{:else}
-		<Auth />
-	{/if}
+	<Menubar />
 	<slot />
 </div>

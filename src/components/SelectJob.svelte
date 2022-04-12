@@ -1,4 +1,5 @@
 <script>
+	import { findViaKey } from '$lib/find';
 	import { random } from '$lib/random';
 	import { current, jobs } from '$lib/stores';
 	import {
@@ -34,7 +35,7 @@
 					stroke-linejoin="round"
 				/>
 			</svg>
-			{$jobs[$current.job]?.title || 'Select a job'}
+			{findViaKey($current.job, 'job')?.title || 'Select a job'}
 		</ListboxButton>
 		<Transition
 			enter="transition duration-100 ease-out"

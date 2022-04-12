@@ -4,7 +4,7 @@ export class Pomo {
   constructor(base: Partial<Pomo>) {
     Object.assign(this, base);
   }
-  id!: number
+  id = Math.floor(Math.random() * 100)
   job: number;
   timestamps: [Date, Date | null][] = [];
   invoiceLine = '';

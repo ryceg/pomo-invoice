@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { current, jobs } from '$lib/stores';
+import { findViaKey } from '$lib/find';
+import { current } from '$lib/stores';
 
-	let selectedJob = $jobs[$current.job];
+	let selectedJob = findViaKey($current.job, 'job');
 </script>

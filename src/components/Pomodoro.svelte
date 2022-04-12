@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { formatTime,LONG_BREAK_S,POMODORO_S,SHORT_BREAK_S,State } from '$lib/consts';
-import { Pomo } from '$lib/Pomo';
-	import { current,jobs } from '$lib/stores';
+	import { findViaKey } from '$lib/find';
+	import { Pomo } from '$lib/Pomo';
+	import { current } from '$lib/stores';
 	import Button from './Button.svelte';
 
 	let currentState = State.idle;
 	let pomodoroTime = POMODORO_S;
 	let completedPomodoros = 0;
 	let interval;
-	let currentJob = $jobs[$current.job];
+	let currentJob = findViaKey($current.job, 'job');;
 	let currentPomodoro;
 
 	function startPomodoro() {

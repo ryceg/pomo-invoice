@@ -5,7 +5,7 @@ export class Job {
   constructor(base: Partial<Job>) {
     Object.assign(this, base);
   }
-  id!: number;
+  id = Math.floor(Math.random() * 100);
   client: number;
   ratePerHour: number = defaults.ratePerHour;
   flatRate = defaults.flatRate;

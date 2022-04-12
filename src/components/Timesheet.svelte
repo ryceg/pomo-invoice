@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Pomo } from '$lib/Pomo';
-	import { jobs } from '$lib/stores';
-	import { entries, toUpperFirst } from '$lib/utils';
-	import dayjs from 'dayjs';
-	import DatePicker from './DatePicker.svelte';
+import { findViaKey } from '$lib/find';
+import type { Pomo } from '$lib/Pomo';
+import { entries,toUpperFirst } from '$lib/utils';
+import dayjs from 'dayjs';
+import DatePicker from './DatePicker.svelte';
 	export let pomos: Pomo[];
 	export let show: {
 		job: boolean;
@@ -19,7 +19,7 @@
 </script>
 
 <table class="table-auto">
-	<thead>
+	<thead class="sticky top-16 bottom-0 z-10 p-3 bg-white">
 		<tr>
 			{#each Object.entries(show) as [key, value]}
 				{#if value}<th>{toUpperFirst(key)}</th>
@@ -39,8 +39,8 @@
 				<!-- Job, Client, Pomo -->
 				{#each entries(show) as [key, value]}
 					{#if value && (i === 0 || pomos[previousI][key] !== pomos[i][key])}
-						<td class="px-2 text-sm font-light">
-							{$jobs[pomo[key]]?.title || 'Loading...'}
+						<td class="px-2 text-sm font-light sticky top-16 bottom-0 ">
+							{findViaKey(pomos[i][key], key)?.title || pomos[i][key] || 'Loading...'}
 						</td>
 					{:else if value}
 						<td />
@@ -49,19 +49,19 @@
 
 				{#each pomo.timestamps as [start, end]}
 					<!-- Date -->
-					<td class="px-5">
-						{#if i === 0 || dayjs(start).format('YYYY-MM-DD') !== dayjs(pomos[previousI].timestamps[0][0]).format('YYYY-MM-DD')}
+					{#if i === 0 || dayjs(start).format('YYYY-MM-DD') !== dayjs(pomos[previousI].timestamps[0][0]).format('YYYY-MM-DD')}
+						<td class="px-5 sticky top-16">
 							<DatePicker bind:date={start} />
-						{:else}
-							As above
-						{/if}
-					</td>
+						</td>
+					{:else}
+						<td class="px-5"> As above </td>
+					{/if}
 					<!-- Time started -->
-					<td>
+					<td class="px-5 sticky top-20">
 						<DatePicker format="hh:mm a" bind:date={start} />
 					</td>
 					<!-- Time Ended -->
-					<td>
+					<td class="px-5 sticky top-20">
 						<DatePicker format="hh:mm a" bind:date={end} />
 					</td>
 				{/each}

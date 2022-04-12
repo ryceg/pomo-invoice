@@ -17,7 +17,7 @@ export function calculatePomoTimeMill(pomos: Pomo[]): number {
     for (let j = 0; j < pomo.timestamps.length; j++) {
       const [start, end] = pomo.timestamps[j];
       if (end) {
-        time += end.getTime() - start.getTime();
+        // time += end.getTime() - start.getTime();
       }
     }
   }

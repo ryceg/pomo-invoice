@@ -4,7 +4,7 @@ export class Person {
   constructor(base: Partial<Person>) {
     Object.assign(this, base);
   }
-  id!: number;
+  id: number = Math.floor(Math.random() * 100);
   firstName = '';
   lastName = '';
   get fullName() {

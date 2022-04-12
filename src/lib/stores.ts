@@ -7,11 +7,11 @@ import type { Pomo } from './Pomo';
 
 
 export const current: Writable<{
-  client: string | number
-  job: string | number
+  client: number
+  job: number
 }> = writable({
-  client: '',
-  job: ''
+  client: 0,
+  job: 0
 })
 export const pomodoros: Writable<Pomo[]> = writable([])
 export const loadPomodoros = async () => {

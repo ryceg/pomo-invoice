@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { clients, jobs } from '$lib/stores';
+	import { clients,jobs } from '$lib/stores';
 </script>
 
 <table class="table-auto">
@@ -22,7 +22,7 @@
 				<td
 					><select bind:value={job.client}>
 						{#each $clients as client}
-							<option value={client.id}>{client.fullName}</option>
+							<option value={client.id}>{client.firstName}</option>
 						{/each}
 					</select></td
 				>
