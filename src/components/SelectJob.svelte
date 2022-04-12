@@ -10,7 +10,7 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { CheckIcon } from '@rgossiaux/svelte-heroicons/solid';
 	if (!$current.job) {
-		$current.job = random($jobs).id || null;
+		$current.job = random($jobs)?.id || null;
 	}
 </script>
 
@@ -45,28 +45,30 @@
 			leaveTo="transform scale-95 opacity-0"
 		>
 			<ListboxOptions class="space-y-2 border-2 rounded">
-				{#each $jobs as job (job.id)}
-					<!-- Use the `active` state to conditionally style the active (focused) option -->
-					<!-- Use the `selected` state to conditionally style the selected option -->
-					<ListboxOption
-						value={job}
-						disabled={!job.isFinished}
-						class={({ active, selected }) =>
-							(active && selected ? 'active selected font-semibold bg-red-700 text-white' : ' ') +
-							(active ? 'active text-white bg-red-600' : 'text-stone-800') +
-							' ' +
-							(selected ? 'selected font-semibold bg-stone-100 text-stone-900' : 'font-normal') +
-							' ' +
-							'max-h-60 py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'}
-						let:selected
-						let:active
-					>
-						{#if selected}
-							<CheckIcon class="inline w-5 h-5" />
-						{/if}
-						{job.title}
-					</ListboxOption>
-				{/each}
+				{#if $jobs}
+					{#each $jobs as job (job.id)}
+						<!-- Use the `active` state to conditionally style the active (focused) option -->
+						<!-- Use the `selected` state to conditionally style the selected option -->
+						<ListboxOption
+							value={job}
+							disabled={!job.isFinished}
+							class={({ active, selected }) =>
+								(active && selected ? 'active selected font-semibold bg-red-700 text-white' : ' ') +
+								(active ? 'active text-white bg-red-600' : 'text-stone-800') +
+								' ' +
+								(selected ? 'selected font-semibold bg-stone-100 text-stone-900' : 'font-normal') +
+								' ' +
+								'max-h-60 py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5'}
+							let:selected
+							let:active
+						>
+							{#if selected}
+								<CheckIcon class="inline w-5 h-5" />
+							{/if}
+							{job.title}
+						</ListboxOption>
+					{/each}
+				{/if}
 			</ListboxOptions>
 		</Transition>
 	</Listbox>
