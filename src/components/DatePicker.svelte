@@ -1,10 +1,8 @@
 <script lang="ts">
 	import dayjs from 'dayjs';
-	import { createUUID } from '../lib/utils';
 
-	export let format = 'YYYY-MM-DD';
-	export let date;
-	if (!date) date = new Date();
+	export let format = 'YYYY-MM-DD HH:mm:ss.SSS';
+	export let date: Date;
 	let isTime = false;
 	let hoursMinutesSymbols = ['H', 'h', 'm', 's'];
 	for (let i = 0; i < hoursMinutesSymbols.length; i++) {
@@ -13,7 +11,6 @@
 			break;
 		}
 	}
-	const id = createUUID();
 	let internal;
 
 	const input = (x: Date) => (internal = dayjs(x).format(format));
@@ -36,17 +33,15 @@
     }
   }
 }} -->
+	({format}) - {JSON.stringify(date)}
 	{#if isTime}
-		({format}) - {JSON.stringify(date)}
 		<input
-			{id}
 			bind:value={internal}
 			type="time"
 			class="w-min selection:bg-red-500 selection:text-stone-50 px-1 rounded"
 		/>
 	{:else}
 		<input
-			{id}
 			bind:value={internal}
 			type="date"
 			class="w-min selection:bg-red-500 selection:text-stone-50 px-1 rounded"

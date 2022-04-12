@@ -34,13 +34,21 @@ import DatePicker from './DatePicker.svelte';
 	<tbody>
 		<!-- filter the values to the current job -->
 		{#each pomos as pomo, i}
+			{@const pomoJob = findViaKey(pomo.job, 'job')}
+			{@const pomoClient = findViaKey(pomoJob.client, 'client')}
 			{@const previousI = i - 1}
 			<tr class="items-center justify-center text-sm">
 				<!-- Job, Client, Pomo -->
 				{#each entries(show) as [key, value]}
-					{#if value && (i === 0 || pomos[previousI][key] !== pomos[i][key])}
-						<td class="px-2 text-sm font-light sticky top-16 bottom-0 ">
-							{findViaKey(pomos[i][key], key)?.title || pomos[i][key] || 'Loading...'}
+					{#if value && (i === 0 || pomos[previousI][key] !== pomo[key])}
+						<td class="px-2 text-sm font-light sticky top-16 bottom-0 bg-white">
+							{#if key === 'client'}
+								{pomoClient?.firstName}
+							{:else if key === 'pomo'}
+								{pomo?.invoiceLine}
+							{:else if key === 'job'}
+								{pomoJob?.title}
+							{/if}
 						</td>
 					{:else if value}
 						<td />
@@ -50,18 +58,18 @@ import DatePicker from './DatePicker.svelte';
 				{#each pomo.timestamps as [start, end]}
 					<!-- Date -->
 					{#if i === 0 || dayjs(start).format('YYYY-MM-DD') !== dayjs(pomos[previousI].timestamps[0][0]).format('YYYY-MM-DD')}
-						<td class="px-5 sticky top-16">
+						<td class="px-5 sticky top-16 bg-white">
 							<DatePicker bind:date={start} />
 						</td>
 					{:else}
 						<td class="px-5"> As above </td>
 					{/if}
 					<!-- Time started -->
-					<td class="px-5 sticky top-20">
+					<td class="px-5 sticky top-20 bg-white">
 						<DatePicker format="hh:mm a" bind:date={start} />
 					</td>
 					<!-- Time Ended -->
-					<td class="px-5 sticky top-20">
+					<td class="px-5 sticky top-20 bg-white">
 						<DatePicker format="hh:mm a" bind:date={end} />
 					</td>
 				{/each}
