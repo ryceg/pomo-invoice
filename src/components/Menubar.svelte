@@ -11,16 +11,16 @@
 			href: '/about'
 		},
 		{
-			name: 'pomos',
-			href: '/pomos'
+			name: 'clients',
+			href: '/clients'
 		},
 		{
 			name: 'jobs',
 			href: '/jobs'
 		},
 		{
-			name: 'clients',
-			href: '/clients'
+			name: 'pomos',
+			href: '/pomos'
 		}
 	];
 
