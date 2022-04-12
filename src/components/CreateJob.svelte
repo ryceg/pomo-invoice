@@ -13,7 +13,7 @@
 	$: newJob;
 	function createJob() {
 		const job = new Job(newJob);
-		$jobs[job.id] = job;
+		$jobs.push(job);
 		$jobs = $jobs;
 		isOpen = false;
 	}
@@ -59,7 +59,7 @@
 						class="focus:border-stone-500 focus:ring-2 focus:ring-stone-200 border-stone-300 w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border rounded outline-none"
 					>
 						<option value="null">--</option>
-						{#each Object.values($clients) as client}
+						{#each $clients as client}
 							<option value={client.id}>{client.fullName}</option>
 						{/each}
 					</select>
