@@ -1,8 +1,8 @@
 <script>
+	import Menubar from '$lib/components/Menubar.svelte';
 	import { loadClients, loadJobs, loadPomodoros, user } from '$lib/stores';
 	import { supabase } from '../../src/supabase';
 	import '../app.css';
-	import Menubar from '../components/Menubar.svelte';
 	user.set(supabase.auth.user());
 	supabase.auth.onAuthStateChange((_, session) => {
 		user.set(session?.user);

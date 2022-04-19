@@ -1,6 +1,6 @@
 <script lang="ts">
+	import Timesheet from '$lib/components/Timesheet.svelte';
 	import { pomodoros } from '$lib/stores';
-	import Timesheet from '../../components/Timesheet.svelte';
 </script>
 
 <h1

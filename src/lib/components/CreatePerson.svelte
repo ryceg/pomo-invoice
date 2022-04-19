@@ -52,7 +52,7 @@
 				<DialogTitle class="text-stone-900 text-lg font-medium leading-6"
 					>Create a Client</DialogTitle
 				>
-				{newPerson?.firstName}
+				{newPerson?.firstName || 'Placeholder'}
 				<div class="relative mb-4">
 					{#each personFields as field}
 						<label for={field.name} class="text-sm leading-7 text-gray-600">{field.label}</label>

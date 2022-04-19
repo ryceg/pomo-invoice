@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Timesheet from '$lib/components/Timesheet.svelte';
 	import { findViaKey } from '$lib/find';
 	import { pomodoros } from '$lib/stores';
-	import Timesheet from '../../components/Timesheet.svelte';
 
 	$: id = parseInt($page.params.id);
 	console.log(id);

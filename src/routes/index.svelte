@@ -1,15 +1,15 @@
 <script>
 	import { calculatePomoTime } from '$lib/calculateTime';
+	import Button from '$lib/components/Button.svelte';
+	import CreateJob from '$lib/components/CreateJob.svelte';
+	import CreatePerson from '$lib/components/CreatePerson.svelte';
+	import Pomodoro from '$lib/components/Pomodoro.svelte';
+	import SelectJob from '$lib/components/SelectJob.svelte';
 	import { defaults } from '$lib/consts';
 	import { createRandom } from '$lib/createRandom';
 	import { findViaKey } from '$lib/find';
 	import { random } from '$lib/random';
 	import { clients, current, jobs, pomodoros } from '$lib/stores';
-	import Button from '../components/Button.svelte';
-	import CreateJob from '../components/CreateJob.svelte';
-	import CreatePerson from '../components/CreatePerson.svelte';
-	import Pomodoro from '../components/Pomodoro.svelte';
-	import SelectJob from '../components/SelectJob.svelte';
 	import { supabase } from '../supabase';
 	$current.job = $current.job || $jobs[0].id;
 	$current.client = $current.client || findViaKey($current.job, 'job').client;
