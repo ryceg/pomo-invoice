@@ -43,6 +43,7 @@
 	<div class="relative flex p-1 rounded-full shadow-2xl">
 		{#each menus as item, i}
 			<a
+				sveltekit:prefetch
 				href={item.href}
 				class=" md:px-5 lg:px-6 hover:rounded-full hover:text-stone-900 hover:bg-slate-100 px-4 py-1"
 				>{toUpperFirst(item.name)}</a
