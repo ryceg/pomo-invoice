@@ -13,6 +13,7 @@
 	if (!$current.job) {
 		$current.job = random($jobs)?.id || null;
 	}
+	$: selectedJob = findViaKey($current.job, 'job');
 </script>
 
 <div
@@ -35,7 +36,7 @@
 					stroke-linejoin="round"
 				/>
 			</svg>
-			{findViaKey($current.job, 'job')?.title || 'Select a job'}
+			{selectedJob?.title || 'Select a job'}
 		</ListboxButton>
 		<Transition
 			enter="transition duration-100 ease-out"

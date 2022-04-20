@@ -12,11 +12,12 @@
 	import { clients, current, jobs, pomodoros } from '$lib/stores';
 	import { supabase } from '../supabase';
 	$current.job = $current.job || $jobs[0].id;
-	$current.client = $current.client || findViaKey($current.job, 'job').client;
-	let selectedJob = $jobs[$current.job];
+	$: selectedJob = findViaKey($current.job, 'job');
+	$current.client = $current.client || selectedJob.client;
 	$: selectedJob;
-	let isOpen = false;
-	let jobIsOpen = false;
+	$: selectedClient = findViaKey($current.client, 'client');
+	$: isOpen = false;
+	$: jobIsOpen = false;
 	$: relevantPomos = $pomodoros.filter((pomo) => {
 		return pomo.job === $current.job;
 	});
@@ -33,23 +34,27 @@
 
 <!-- <HydrateDefaults /> -->
 <header>
-	<div
+	<h1
 		class="bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 p-4 text-5xl font-extrabold text-center text-transparent"
 	>
 		pomo-invoice
-	</div>
+	</h1>
 </header>
 <body>
 	<Pomodoro />
 	<div class="items-center justify-center text-sm">
 		<div class="pt-4 text-2xl font-medium leading-5 text-center text-gray-700">
-			<a sveltekit:prefetch href="/jobs/{$current.job}">{findViaKey($current.job, 'job').title} </a>
+			<a sveltekit:prefetch href="/jobs/{$current.job}">{selectedJob.title} </a>
 		</div>
 		<div class="font-light text-center text-gray-500">for</div>
 		<div class="py-1 text-lg font-medium leading-5 text-center text-gray-700">
-			<a sveltekit:prefetch href="/clients/{findViaKey($current.job, 'job').client}">
-				{findViaKey(findViaKey($current.job, 'job').client, 'client').firstName}
-			</a>
+			{#if selectedClient?.firstName}
+				<a sveltekit:prefetch href="/clients/{selectedJob.client}">
+					{selectedClient.firstName}
+				</a>
+			{:else}
+				Client not selected.
+			{/if}
 		</div>
 	</div>
 	<SelectJob />

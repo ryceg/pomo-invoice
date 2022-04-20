@@ -9,7 +9,7 @@
 		TransitionChild
 	} from '@rgossiaux/svelte-headlessui';
 	export let isOpen = true;
-	let newPerson = {};
+	let newPerson = new Person({});
 	$: newPerson;
 	function createPerson() {
 		const person = new Person(newPerson);
