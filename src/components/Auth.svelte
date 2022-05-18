@@ -1,12 +1,15 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { user } from '$lib/stores';
 	import { supabase } from '../../src/supabase';
 
 	let loading = false;
-	let email;
+	let email = '';
+	// let password = ''
 	async function handleLogin() {
 		try {
 			console.log(email);
-			const { error } = await supabase.auth.signIn({ email });
+			const { user, error } = await supabase.auth.signUp({ email });
 			if (error) throw error;
 			alert('Check your email for the login link!');
 		} catch (error) {
@@ -14,6 +17,10 @@
 			alert(error.error_description || error.message || error.error);
 		} finally {
 			loading = false;
+			if (user) {
+				// redirect to home
+				goto('/');
+			}
 		}
 	}
 </script>
