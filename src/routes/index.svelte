@@ -31,11 +31,11 @@
 
 <!-- <HydrateDefaults /> -->
 <header>
-	<div
+	<h1
 		class="bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 p-4 text-5xl font-extrabold text-center text-transparent"
 	>
 		pomo-invoice
-	</div>
+	</h1>
 </header>
 <body>
 	<Pomodoro />

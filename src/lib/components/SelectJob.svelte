@@ -13,6 +13,7 @@
 	if (!$current.job) {
 		$current.job = random($jobs)?.id || null;
 	}
+	$: selectedJob = findViaKey($current.job, 'job');
 </script>
 
 <div
