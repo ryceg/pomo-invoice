@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatTime,LONG_BREAK_S,POMODORO_S,SHORT_BREAK_S,State } from '$lib/consts';
+	import { formatTime, LONG_BREAK_S, POMODORO_S, SHORT_BREAK_S, State } from '$lib/consts';
 	import { findViaKey } from '$lib/find';
 	import { Pomo } from '$lib/Pomo';
 	import { current } from '$lib/stores';
@@ -9,13 +9,13 @@
 	let pomodoroTime = POMODORO_S;
 	let completedPomodoros = 0;
 	let interval;
-	let currentJob = findViaKey($current.job, 'job');;
+	let currentJob = findViaKey($current.job, 'job') || null;
 	let currentPomodoro;
 
 	function startPomodoro() {
 		currentPomodoro = new Pomo({
 			job: currentJob.id
-		})
+		});
 		currentPomodoro.start();
 		setState(State.inProgress);
 		interval = setInterval(() => {
