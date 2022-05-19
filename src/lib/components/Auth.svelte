@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { user } from '$lib/stores';
-	import { supabase } from '../../src/supabase';
+	import { supabase } from '../../../src/supabase';
 	export let title = 'Sign Up';
 	let loading = false;
 	let password = '';
