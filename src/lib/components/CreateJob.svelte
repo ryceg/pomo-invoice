@@ -60,7 +60,7 @@
 					>
 						<option value="null">--</option>
 						{#each $clients as client}
-							<option value={client.id}>{client.fullName}</option>
+							<option value={client.id}>{client.firstName}</option>
 						{/each}
 					</select>
 					{#each jobFields as field}

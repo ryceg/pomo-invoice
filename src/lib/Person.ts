@@ -7,14 +7,6 @@ export class Person {
   id: number = Math.floor(Math.random() * 100);
   firstName = '';
   lastName = '';
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
-  set fullName(newName: string) {
-    const [firstName, lastName] = newName.split(' ');
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
   address = '';
   phone = '';
   email = '';

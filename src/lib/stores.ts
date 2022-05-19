@@ -23,7 +23,16 @@ export const loadPomodoros = async () => {
 export const addPomodoro = async (pomodoro: Pomo) => {
   const { data, error }: { data: Pomo[], error: PostgrestError } = await supabase.from('pomodoros').insert(pomodoro)
   if (error) return console.error(error)
-  pomodoros.update(pomodoros => [...pomodoros, data])
+  pomodoros.update(cur => {
+    const newPomodoros = [...cur, { ...pomodoro }]
+    return newPomodoros
+  })
+}
+
+export const deletePomodoro = async (id: number) => {
+  const { error } = await supabase.from('pomodoros').delete().match({ id })
+  if (error) return console.error(error)
+  pomodoros.update(pomodoros => pomodoros.filter(client => client.id !== id))
 }
 
 
@@ -38,7 +47,10 @@ export const loadClients = async () => {
 export const addClient = async (client: Person) => {
   const { data, error }: { data: Person[], error: PostgrestError } = await supabase.from('clients').insert([client])
   if (error) return console.error(error)
-  clients.update(clients => [...clients, data])
+  clients.update(cur => {
+    const newClients = [...cur, { ...client }]
+    return newClients
+  })
 }
 
 export const deleteClient = async (id: number) => {
@@ -50,7 +62,9 @@ export const deleteClient = async (id: number) => {
 export const updateClient = async (client: Person) => {
   const { data, error }: { data: Person[], error: PostgrestError } = await supabase.from('clients').update([client])
   if (error) return console.error(error)
-  clients.update(clients => clients.map(client => client.id === data.id ? data : client))
+  clients.update(clientsList => clientsList.filter(currentClient => {
+    if (client.id === currentClient.id) return currentClient = client
+  }))
 }
 
 
@@ -65,7 +79,10 @@ export const loadJobs = async () => {
 export const addJob = async (job: Job) => {
   const { data, error }: { data: Job[], error: PostgrestError } = await supabase.from('jobs').insert([job])
   if (error) return console.error(error)
-  jobs.update(jobs => [...jobs, data])
+  jobs.update(cur => {
+    const newJobs = [...cur, { ...job }]
+    return newJobs
+  })
 }
 
 export const deleteJob = async (id: number) => {
@@ -77,7 +94,9 @@ export const deleteJob = async (id: number) => {
 export const updateJob = async (job: Job) => {
   const { data, error }: { data: Job[], error: PostgrestError } = await supabase.from('jobs').update([job])
   if (error) return console.error(error)
-  jobs.update(jobs => jobs.map(j => j.id === job.id ? data : j))
+  jobs.update(jobsList => jobsList.filter(currentJob => {
+    if (job.id === currentJob.id) return currentJob = job
+  }))
 }
 
 loadClients()

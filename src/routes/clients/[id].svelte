@@ -23,4 +23,12 @@
 >
 	{`${selectedClient?.firstName} ${selectedClient?.lastName}` || 'Loading'}
 </h1>
+
+<div
+	class="py-1 text-lg font-medium leading-5 text-center text-gray-700"
+	contenteditable="true"
+	bind:innerHTML={selectedClient.notes}
+>
+	{selectedClient.notes}
+</div>
 <Timesheet pomos={relevantPomos} show={{ job: true, pomo: true, client: false }} />
