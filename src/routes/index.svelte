@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import CreateJob from '$lib/components/CreateJob.svelte';
 	import CreatePerson from '$lib/components/CreatePerson.svelte';
+	import CreatePomo from '$lib/components/CreatePomo.svelte';
 	import Pomodoro from '$lib/components/Pomodoro.svelte';
 	import SelectJob from '$lib/components/SelectJob.svelte';
 	import { createRandom } from '$lib/createRandom';
@@ -13,8 +14,11 @@
 	// $current.client = $current.client || findViaKey($current.job, 'job').client || null;
 
 	$: selectedJob = $jobs[$current.job] || null;
-	let isOpen = false;
-	let jobIsOpen = false;
+	$: open = {
+		job: false,
+		client: false,
+		pomo: false
+	};
 	// $: relevantPomos =
 	// 	$pomodoros.filter((pomo) => {
 	// 		return pomo.job === $current.job;
@@ -27,6 +31,7 @@
 			pomodoros: 45
 		});
 	}
+	$: test = JSON.stringify(open);
 </script>
 
 <!-- <HydrateDefaults /> -->
@@ -56,7 +61,7 @@
 			Create a job!
 		{/if}
 	</div>
-	<SelectJob />
+	<SelectJob bind:selected={selectedJob} />
 	<!-- {#if relevantPomos}
 		<div class="py-2">Total: {calculatePomoTime(relevantPomos) || 0}</div>
 		<div class="py-2">
@@ -70,21 +75,32 @@
 		>Create All</button
 	>
 
+	{test}
+
 	<div class="bottom-4 fixed justify-center">
 		<Button
 			func={() => {
-				isOpen = !isOpen;
+				open.client = !open.client;
 			}}
 			>Create Client
-			<CreatePerson {isOpen} />
+			<CreatePerson isOpen={open.client} />
 		</Button>
 		<Button
 			func={() => {
-				jobIsOpen = !jobIsOpen;
+				open.job = !open.job;
 			}}
 		>
 			Create Job
-			<CreateJob isOpen={jobIsOpen} />
+			<CreateJob isOpen={open.job} />
+		</Button>
+
+		<Button
+			func={() => {
+				open.pomo = !open.pomo;
+			}}
+		>
+			Create Pomo
+			<CreatePomo isOpen={open.pomo} />
 		</Button>
 	</div>
 </body>

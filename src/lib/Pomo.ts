@@ -5,7 +5,7 @@ export class Pomo {
     Object.assign(this, base);
   }
   id = Math.floor(Math.random() * 100)
-  job: number;
+  job: number | null = null;
   timestamps: [Date, Date | null][] = [];
   invoiceLine = '';
   notes = '';
@@ -37,3 +37,32 @@ export class Pomo {
   //   this.timeAccrued = 0;
   // }
 }
+
+interface PomoField {
+  type: string
+  label: string
+  name: string
+}
+
+export const pomoFields: PomoField[] = [
+  {
+    type: 'datetime',
+    label: 'Start Time',
+    name: 'start'
+  },
+  {
+    type: 'datetime',
+    label: 'Finish Time',
+    name: 'finish'
+  },
+  {
+    type: 'text',
+    label: 'Invoice Line',
+    name: 'invoiceLine'
+  },
+  {
+    type: 'text',
+    label: 'Notes',
+    name: 'notes'
+  }
+];

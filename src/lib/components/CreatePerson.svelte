@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Person, personFields } from '$lib/Person';
-	import { clients } from '$lib/stores';
+	import { addClient } from '$lib/stores';
 	import {
 		Dialog,
 		DialogOverlay,
@@ -13,8 +13,7 @@
 	$: newPerson;
 	function createPerson() {
 		const person = new Person(newPerson);
-		$clients.push(person);
-		$clients = $clients;
+		addClient(person);
 		isOpen = false;
 	}
 </script>

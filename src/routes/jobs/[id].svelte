@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import Timesheet from '$lib/components/Timesheet.svelte';
 	import { findViaKey } from '$lib/find';
-	import { pomodoros } from '$lib/stores';
+	import { pomodoros, updateJob } from '$lib/stores';
 
 	$: id = parseInt($page.params.id);
 	console.log(id);
@@ -16,6 +16,7 @@
 <h1
 	class="sticky top-0 bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 p-4 text-5xl font-extrabold text-transparent"
 	contenteditable="true"
+	on:blur={() => updateJob(selectedJob)}
 	bind:innerHTML={selectedJob.title}
 >
 	{selectedJob?.title || 'Loading'}

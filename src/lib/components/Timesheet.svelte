@@ -1,9 +1,10 @@
 <script lang="ts">
-import { findViaKey } from '$lib/find';
-import type { Pomo } from '$lib/Pomo';
-import { entries,toUpperFirst } from '$lib/utils';
-import dayjs from 'dayjs';
-import DatePicker from './DatePicker.svelte';
+	import { findViaKey } from '$lib/find';
+	import type { Pomo } from '$lib/Pomo';
+	import { loadPomodoros, updatePomodoro } from '$lib/stores';
+	import { entries, toUpperFirst } from '$lib/utils';
+	import * as dayjs from 'dayjs';
+	import DatePicker from './DatePicker.svelte';
 	export let pomos: Pomo[];
 	export let show: {
 		job: boolean;
@@ -16,6 +17,7 @@ import DatePicker from './DatePicker.svelte';
 		pomo: false,
 		...show
 	};
+	loadPomodoros();
 </script>
 
 <table class="table-auto">
@@ -54,23 +56,40 @@ import DatePicker from './DatePicker.svelte';
 						<td />
 					{/if}
 				{/each}
-
 				{#each pomo.timestamps as [start, end]}
 					<!-- Date -->
 					{#if i === 0 || dayjs(start).format('YYYY-MM-DD') !== dayjs(pomos[previousI].timestamps[0][0]).format('YYYY-MM-DD')}
 						<td class="px-5 sticky top-16 bg-white">
-							<DatePicker bind:date={start} />
+							<!-- <DatePicker bind:date={start} /> -->
+							{start}
+							<input
+								bind:value={start}
+								on:change={() => updatePomodoro(pomo)}
+								type="date"
+								class="w-min selection:bg-red-500 selection:text-stone-50 px-1 rounded"
+							/>
 						</td>
 					{:else}
-						<td class="px-5"> As above </td>
+						<td class="px-5">As above </td>
 					{/if}
 					<!-- Time started -->
 					<td class="px-5 sticky top-20 bg-white">
-						<DatePicker format="hh:mm a" bind:date={start} />
+						<DatePicker bind:date={start} />
+						<!-- <input
+							bind:value={start}
+							on:change={() => updatePomodoro(pomo)}
+							type="date"
+							class="w-min selection:bg-red-500 selection:text-stone-50 px-1 rounded"
+						/> -->
 					</td>
 					<!-- Time Ended -->
 					<td class="px-5 sticky top-20 bg-white">
-						<DatePicker format="hh:mm a" bind:date={end} />
+						<input
+							bind:value={end}
+							on:change={() => updatePomodoro(pomo)}
+							type="date"
+							class="w-min selection:bg-red-500 selection:text-stone-50 px-1 rounded"
+						/>
 					</td>
 				{/each}
 			</tr>

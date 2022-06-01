@@ -22,7 +22,7 @@
 			alert(error.error_description || error.message || error.error);
 		} finally {
 			loading = false;
-			if (user) {
+			if ($user) {
 				// redirect to home
 				goto('/');
 			}

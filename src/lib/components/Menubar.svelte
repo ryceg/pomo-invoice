@@ -1,5 +1,7 @@
 <script>
+	import { user } from '$lib/stores';
 	import { toUpperFirst } from '$lib/utils';
+	import { supabase } from '../../supabase';
 
 	export let menus = [
 		{
@@ -45,9 +47,29 @@
 			<a
 				sveltekit:prefetch
 				href={item.href}
-				class=" md:px-5 lg:px-6 hover:rounded-full hover:text-stone-900 hover:bg-slate-100 px-4 py-1"
+				class="md:px-5 lg:px-6 hover:rounded-full hover:text-stone-900 hover:bg-slate-100 px-4 py-1"
 				>{toUpperFirst(item.name)}</a
 			>
 		{/each}
+		{#if $user}
+			<div>
+				{$user.user_metadata.avatar_url}
+			</div>
+			<button
+				on:click={() => {
+					supabase.auth.signOut();
+				}}
+				sveltekit:prefetch
+				class="md:px-5 lg:px-6 hover:rounded-full hover:text-stone-900 hover:bg-slate-100 px-4 py-1"
+				>Logout</button
+			>
+		{:else}
+			<a
+				href="/auth"
+				sveltekit:prefetch
+				class="md:px-5 lg:px-6 hover:rounded-full hover:text-stone-900 hover:bg-slate-100 px-4 py-1"
+				>Login</a
+			>
+		{/if}
 	</div>
 </div>

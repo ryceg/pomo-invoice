@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Job, jobFields } from '$lib/Job';
-	import { clients, jobs } from '$lib/stores';
+	import { addJob, clients } from '$lib/stores';
 	import {
 		Dialog,
 		DialogOverlay,
@@ -13,8 +13,7 @@
 	$: newJob;
 	function createJob() {
 		const job = new Job(newJob);
-		$jobs.push(job);
-		$jobs = $jobs;
+		addJob(job);
 		isOpen = false;
 	}
 </script>

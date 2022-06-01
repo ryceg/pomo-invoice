@@ -1,8 +1,9 @@
 <script lang="ts">
-	import dayjs from 'dayjs';
+	import * as dayjs from 'dayjs';
 
-	export let format = 'YYYY-MM-DD HH:mm:ss.SSS';
+	export let format = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 	export let date: Date;
+	let dayJSDate = dayjs(date);
 	let isTime = false;
 	let hoursMinutesSymbols = ['H', 'h', 'm', 's'];
 	for (let i = 0; i < hoursMinutesSymbols.length; i++) {
@@ -12,11 +13,13 @@
 		}
 	}
 	let internal;
+	console.log('date', dayJSDate);
+	const input = (x: dayjs.Dayjs) => (internal = dayjs(x).format(format));
+	const output = (x: dayjs.Dayjs) => (dayJSDate = dayjs(x, format).toDate());
+	console.log('input', input(dayJSDate));
+	console.log('output', output(dayJSDate));
 
-	const input = (x: Date) => (internal = dayjs(x).format(format));
-	const output = (x: Date) => (date = dayjs(x, format).toDate());
-
-	$: input(date);
+	$: input(dayJSDate);
 	$: output(internal);
 </script>
 
@@ -33,7 +36,7 @@
     }
   }
 }} -->
-	({format}) - {JSON.stringify(date)}
+	({format}) - {JSON.stringify(dayJSDate)}
 	{#if isTime}
 		<input
 			bind:value={internal}
@@ -43,7 +46,7 @@
 	{:else}
 		<input
 			bind:value={internal}
-			type="date"
+			type="datetime-local"
 			class="w-min selection:bg-red-500 selection:text-stone-50 px-1 rounded"
 		/>
 	{/if}

@@ -35,6 +35,15 @@ export const deletePomodoro = async (id: number) => {
   pomodoros.update(pomodoros => pomodoros.filter(client => client.id !== id))
 }
 
+export const updatePomodoro = async (pomo: Pomo) => {
+  const { data, error }: { data: Pomo[], error: PostgrestError } = await supabase.from('pomodoros').update(pomo).match({ id: pomo.id })
+  if (error) return console.error(error)
+  pomodoros.update(pomosList => pomosList.filter(currentPomo => {
+    if (pomo.id === currentPomo.id) return currentPomo = pomo
+  }))
+  console.log(data)
+}
+
 
 
 export const clients: Writable<Person[]> = writable([])
@@ -60,11 +69,12 @@ export const deleteClient = async (id: number) => {
 }
 
 export const updateClient = async (client: Person) => {
-  const { data, error }: { data: Person[], error: PostgrestError } = await supabase.from('clients').update([client])
+  const { data, error }: { data: Person[], error: PostgrestError } = await supabase.from('clients').update(client).match({ id: client.id })
   if (error) return console.error(error)
   clients.update(clientsList => clientsList.filter(currentClient => {
     if (client.id === currentClient.id) return currentClient = client
   }))
+  console.log(data)
 }
 
 
@@ -83,20 +93,23 @@ export const addJob = async (job: Job) => {
     const newJobs = [...cur, { ...job }]
     return newJobs
   })
+  return jobs
 }
 
 export const deleteJob = async (id: number) => {
   const { error } = await supabase.from('jobs').delete().match({ id })
   if (error) return console.error(error)
   jobs.update(jobs => jobs.filter(job => job.id !== id))
+  return jobs
 }
 
 export const updateJob = async (job: Job) => {
-  const { data, error }: { data: Job[], error: PostgrestError } = await supabase.from('jobs').update([job])
+  const { data, error }: { data: Job[], error: PostgrestError } = await supabase.from('jobs').update([job]).match({ id: job.id })
   if (error) return console.error(error)
   jobs.update(jobsList => jobsList.filter(currentJob => {
     if (job.id === currentJob.id) return currentJob = job
   }))
+  return jobs
 }
 
 loadClients()
